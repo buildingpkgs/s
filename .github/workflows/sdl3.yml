@@ -15,6 +15,7 @@ jobs:
           pacman -Syu --noconfirm base-devel git
           git clone https://aur.archlinux.org/sdl3.git
           cd sdl3
+          sed -i '/^epoch=1$/d' PKGBUILD
           git clone https://aur.archlinux.org/sdl2-compat-git.git
           useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           chown user -R .
