@@ -18,7 +18,7 @@ jobs:
           git clone https://aur.archlinux.org/sdl2-compat-git.git
           useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
           chown user -R .
-          su user -c "yes|PKGDEST=/tmp/sdl3 makepkg --noconfirm -s"
+          su user -c "yes|PKGDEST=/tmp/sdl3 makepkg --noconfirm -si"
           cd sdl2-compat-git
           su user -c "yes|PKGDEST=/tmp/sdl3 makepkg --noconfirm -s"
 
