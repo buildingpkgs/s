@@ -1,0 +1,29 @@
+name: sdl3 Arch Linux CI
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: archlinux:latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile
+        run: |
+          pacman -Syu --noconfirm base-devel
+          git clone https://aur.archlinux.org/sdl3.git
+          cd sdl3
+          git clone https://aur.archlinux.org/sdl2-compat-git.git
+          useradd user -G wheel && echo "user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+          chown user -R .
+          su user -c "yes|PKGDEST=/tmp/sdl3 makepkg --noconfirm -s"
+          cd sdl2-compat-git
+          su user -c "yes|PKGDEST=/tmp/sdl3 makepkg --noconfirm -s"
+
+      - name: Archive the artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sdl3
+          path: /tmp/sdl3
