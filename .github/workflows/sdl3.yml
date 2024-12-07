@@ -12,7 +12,7 @@ jobs:
       - uses: actions/checkout@v4
       - name: Compile
         run: |
-          pacman -Syu --noconfirm base-devel
+          pacman -Syu --noconfirm base-devel git
           git clone https://aur.archlinux.org/sdl3.git
           cd sdl3
           git clone https://aur.archlinux.org/sdl2-compat-git.git
